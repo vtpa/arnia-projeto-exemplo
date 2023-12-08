@@ -2,8 +2,9 @@
   "name": "projeto-padrao",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/server.ts",
   "scripts": {
+    "dev": "tsnd --respawn src/server.ts",
     "lint": "eslint --fix --ext .ts .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
