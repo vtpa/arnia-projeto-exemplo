@@ -1,6 +1,7 @@
 import { mongoose } from '../database'
+import { IBrand } from '../entities/IBrand'
 
-const brandSchema = new mongoose.Schema({
+const brandSchema = new mongoose.Schema<IBrand>({
   title: {
     type: String,
     required: true,
@@ -14,4 +15,4 @@ const brandSchema = new mongoose.Schema({
   },
 })
 
-export const Brand = mongoose.model('brand', brandSchema)
+export const Brand = mongoose.model<IBrand>('brand', brandSchema)

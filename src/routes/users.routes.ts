@@ -2,6 +2,7 @@ import { Router } from 'express'
 import * as Yup from 'yup'
 import { hash } from 'bcrypt'
 import { User } from '../models/User'
+import { auth } from '../middlewares/auth'
 
 const router = Router()
 
@@ -9,6 +10,8 @@ router.get('/', async (req, res) => {
   const users = await User.find()
   res.send(users)
 })
+
+// Criar a rota get by id
 
 router.post('/', async (req, res) => {
   const userSchema = Yup.object({
@@ -27,7 +30,9 @@ router.post('/', async (req, res) => {
   }
 })
 
-router.delete('/:id', async (req, res) => {
+// Criar a roda update by id
+
+router.delete('/:id', auth, async (req, res) => {
   const userParamSchema = Yup.object({
     id: Yup.string().required(),
   })

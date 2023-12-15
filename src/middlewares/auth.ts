@@ -30,7 +30,8 @@ export function auth(
       return res.status(401).send({ error: 'Invalid Token!' })
     }
 
-    req.body.userId = decoded.sub as string
+    // req.userId = decoded.sub as string
+
     next()
   })
 }

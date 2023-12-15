@@ -2,6 +2,7 @@ import { Router } from 'express'
 import * as Yup from 'yup'
 import { Brand } from '../models/Brand'
 import { auth } from '../middlewares/auth'
+import { IBrandDTO } from '../entities/IBrand'
 
 const router = Router()
 
@@ -30,14 +31,14 @@ router.get('/:id', async (req, res) => {
   }
 })
 
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
   const brandSchema = Yup.object({
     title: Yup.string().required(),
     description: Yup.string(),
   })
 
   try {
-    const brand = await brandSchema.validate(req.body)
+    const brand: IBrandDTO = await brandSchema.validate(req.body)
     const newBrand = await new Brand(brand).save()
     res.status(201).send(newBrand)
   } catch (error) {
@@ -46,7 +47,7 @@ router.post('/', async (req, res) => {
   }
 })
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', auth, async (req, res) => {
   const brandParamSchema = Yup.object({
     id: Yup.string().required(),
   })
@@ -77,7 +78,7 @@ router.put('/:id', async (req, res) => {
   }
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', auth, async (req, res) => {
   const brandParamSchema = Yup.object({
     id: Yup.string().required(),
   })
